@@ -1,19 +1,24 @@
-// =====================================
-// ADSA IPÊ - SITE PÚBLICO
-// JAVASCRIPT PRINCIPAL
-// =====================================
+/* =====================================
+   ADSA IPÊ SYSTEM
+   SITE PÚBLICO - JAVASCRIPT
+   ===================================== */
 
 
+
+// =====================================
 // MENU MOBILE
+// =====================================
+
 
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 
-if (menuToggle && navMenu) {
+
+if(menuToggle && navMenu){
 
 
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener("click",()=>{
 
 
         navMenu.classList.toggle("active");
@@ -26,18 +31,26 @@ if (menuToggle && navMenu) {
 
 
 
-// FECHAR MENU AO CLICAR EM UM LINK
 
-const linksMenu = document.querySelectorAll(".nav a");
-
-
-linksMenu.forEach(link => {
+// =====================================
+// FECHAR MENU AO CLICAR NOS LINKS
+// =====================================
 
 
-    link.addEventListener("click", () => {
+const menuLinks = document.querySelectorAll(".nav a");
 
 
-        navMenu.classList.remove("active");
+menuLinks.forEach(link=>{
+
+
+    link.addEventListener("click",()=>{
+
+
+        if(navMenu){
+
+            navMenu.classList.remove("active");
+
+        }
 
 
     });
@@ -47,14 +60,74 @@ linksMenu.forEach(link => {
 
 
 
-// ANO AUTOMÁTICO NO RODAPÉ
-
-const ano = document.querySelector(".footer p");
 
 
-if(ano){
+// =====================================
+// ANO AUTOMÁTICO DO FOOTER
+// =====================================
 
-    ano.innerHTML =
+
+const footerText = document.querySelector(".footer p");
+
+
+if(footerText){
+
+
+    footerText.innerHTML =
     `© ${new Date().getFullYear()} ADSA IPÊ. Todos os direitos reservados.`;
 
+
 }
+
+
+
+
+
+
+// =====================================
+// SCROLL SUAVE
+// =====================================
+
+
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+
+
+    link.addEventListener("click",function(e){
+
+
+        const destino = document.querySelector(this.getAttribute("href"));
+
+
+        if(destino){
+
+
+            e.preventDefault();
+
+
+            destino.scrollIntoView({
+
+                behavior:"smooth"
+
+            });
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+
+
+// =====================================
+// STATUS DO SITE
+// =====================================
+
+
+console.log(
+    "ADSA IPÊ SYSTEM - Site público carregado com sucesso."
+);
