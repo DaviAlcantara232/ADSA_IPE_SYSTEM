@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADSA IPÊ SYSTEM - Financeiro</title>
+
+    <link rel="stylesheet" href="../css/financeiro.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+
+            <h1>ADSA IPÊ SYSTEM</h1>
+
+            <p>Painel Financeiro</p>
+
+        </div>
+
+        <div class="usuario">
+
+            <span id="usuarioLogado">
+                Carregando...
+            </span>
+
+            <button onclick="voltar()">
+                Dashboard
+            </button>
+
+            <button onclick="sair()">
+                Sair
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+        <!-- RESUMO -->
+
+        <section class="cardsResumo">
+
+            <div class="cardResumo">
+
+                <h3>Saldo Atual</h3>
+
+                <h2 id="saldo">
+                    R$ 0,00
+                </h2>
+
+            </div>
+
+            <div class="cardResumo">
+
+                <h3>Total de Entradas</h3>
+
+                <h2 id="entradas">
+                    R$ 0,00
+                </h2>
+
+            </div>
+
+            <div class="cardResumo">
+
+                <h3>Total de Saídas</h3>
+
+                <h2 id="saidas">
+                    R$ 0,00
+                </h2>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- BOTÕES -->
+
+        <section class="acoes">
+
+            <button onclick="novaEntrada()">
+                ➕ Nova Entrada
+            </button>
+
+            <button onclick="novaSaida()">
+                ➖ Nova Saída
+            </button>
+
+            <button onclick="editarSelecionado()">
+                ✏️ Editar
+            </button>
+
+            <button onclick="excluirSelecionado()">
+                🗑️ Excluir
+            </button>
+
+            <button onclick="atualizarFinanceiro()">
+                🔄 Atualizar
+            </button>
+
+            <button onclick="historicoFinanceiro()">
+                📜 Histórico
+            </button>
+
+            <button onclick="relatorioFinanceiro()">
+                📊 Relatórios
+            </button>
+
+            <button onclick="exportarPDF()">
+                📄 Exportar PDF
+            </button>
+
+        </section>
+
+
+
+        <!-- TABELA -->
+
+        <section class="tabela">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Tipo</th>
+
+                        <th>Descrição</th>
+
+                        <th>Valor</th>
+
+                        <th>Data</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="listaFinanceiro">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- LOG -->
+
+        <section class="cardLog">
+
+            <h3>Log do Sistema</h3>
+
+            <div id="logSistema">
+
+                Sistema iniciado.
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <footer>
+
+        ADSA IPÊ SYSTEM © 2026
+
+    </footer>
+
+
+
+    <script src="../js/financeiro.js"></script>
+
+</body>
+
+</html>

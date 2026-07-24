@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Eventos | ADSA IPÊ SYSTEM</title>
+
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/design-system.css">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+<div class="container header-content">
+
+
+<div class="logo">
+
+ADSA IPÊ SYSTEM
+
+</div>
+
+
+
+
+<nav class="nav">
+
+
+<a href="dashboard.html">
+Dashboard
+</a>
+
+
+<a href="membros.html">
+Membros
+</a>
+
+
+<a href="financeiro.html">
+Financeiro
+</a>
+
+
+<a href="eventos.html">
+Eventos
+</a>
+
+
+<a href="../index.html">
+Sair
+</a>
+
+
+</nav>
+
+
+</div>
+
+</header>
+
+
+
+
+
+
+
+
+
+<main>
+
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h1>
+
+Eventos
+
+</h1>
+
+
+<p>
+
+Gerenciamento de eventos da igreja.
+
+</p>
+
+
+
+
+
+
+
+
+
+<!-- FORMULÁRIO -->
+
+
+<div class="card">
+
+
+<h2>
+
+Cadastrar evento
+
+</h2>
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Nome do evento
+
+</label>
+
+
+<input
+id="nome-evento"
+type="text"
+placeholder="Ex: Culto de Jovens"
+>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Data
+
+</label>
+
+
+<input
+id="data-evento"
+type="date"
+>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Horário
+
+</label>
+
+
+<input
+id="hora-evento"
+type="time"
+>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Local
+
+</label>
+
+
+<input
+id="local-evento"
+type="text"
+placeholder="Ex: Templo ADSA IPÊ"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Responsável
+
+</label>
+
+
+<input
+id="responsavel-evento"
+type="text"
+placeholder="Nome responsável"
+>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+
+Descrição
+
+</label>
+
+
+<textarea
+id="descricao-evento"
+placeholder="Descrição do evento">
+</textarea>
+
+
+</div>
+
+
+
+
+
+
+
+<button
+class="btn-primary"
+id="salvar-evento">
+
+Salvar evento
+
+</button>
+
+
+
+
+
+<button
+class="btn-secondary"
+id="cancelar-evento"
+style="display:none">
+
+Cancelar edição
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- PESQUISA -->
+
+
+<div class="card">
+
+
+<h2>
+
+Pesquisar evento
+
+</h2>
+
+
+
+<input
+id="pesquisa-evento"
+type="search"
+placeholder="Digite o nome do evento"
+>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- LISTA -->
+
+
+<div class="card table-container">
+
+
+<h2>
+
+Eventos cadastrados
+
+</h2>
+
+
+
+
+<table class="members-table">
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Evento
+</th>
+
+
+<th>
+Data
+</th>
+
+
+<th>
+Horário
+</th>
+
+
+<th>
+Local
+</th>
+
+
+<th>
+Responsável
+</th>
+
+
+<th>
+Ações
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="lista-eventos">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+
+
+
+
+<script src="../js/main.js"></script>
+
+<script src="../js/eventos.js"></script>
+
+
+
+</body>
+
+</html>

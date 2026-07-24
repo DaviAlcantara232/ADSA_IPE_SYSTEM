@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ADSA IPÊ SYSTEM - Dashboard</title>
+
+<link rel="stylesheet" href="../css/dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        ADSA IPÊ SYSTEM
+    </h1>
+
+
+    <div>
+
+        <span id="tipoUsuario"></span>
+
+        <button onclick="sair()">
+            Sair
+        </button>
+
+    </div>
+
+
+</header>
+
+
+
+<main>
+
+
+<section class="perfil card">
+
+
+    <h2>
+        Bem-vindo ao sistema
+    </h2>
+
+
+    <p id="usuario">
+        Carregando...
+    </p>
+
+
+    <p id="email">
+        Carregando...
+    </p>
+
+
+</section>
+
+
+
+<section class="cards">
+
+
+<div class="card">
+
+<h3>
+Membros
+</h3>
+
+<p>
+Gerenciamento de membros
+</p>
+
+<button onclick="abrirMembros()">
+Acessar
+</button>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h3>
+Financeiro
+</h3>
+
+<p>
+Entradas e despesas da igreja
+</p>
+
+<button onclick="abrirFinanceiro()">
+Acessar
+</button>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+Eventos
+</h3>
+
+<p>
+Agenda e eventos
+</p>
+
+<button>
+Acessar
+</button>
+
+</div>
+
+
+
+</section>
+
+
+
+<section class="resultado card">
+
+
+<h2>
+Status da API
+</h2>
+
+
+<p id="statusAPI">
+Verificando...
+</p>
+
+
+</section>
+
+
+
+</main>
+
+
+
+<script src="../js/dashboard.js"></script>
+
+
+</body>
+
+</html>

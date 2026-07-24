@@ -1,0 +1,459 @@
+/* =====================================
+   ADSA IPÊ SYSTEM
+   COMPONENTS CSS
+   ===================================== */
+
+
+/* =========================
+   CARDS
+   ========================= */
+
+
+.card {
+
+    background:
+        var(--background-color);
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        var(--radius-md);
+
+    padding:
+        var(--spacing-5);
+
+    box-shadow:
+        var(--shadow-sm);
+
+    transition:
+        var(--transition-normal);
+
+}
+
+
+
+.card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        var(--shadow-md);
+
+}
+
+
+
+.card h3 {
+
+    margin-bottom:
+        var(--spacing-3);
+
+}
+
+
+
+.card p {
+
+    color:
+        var(--text-light);
+
+}
+
+
+
+/* =========================
+   CARDS DE EVENTOS
+   ========================= */
+
+
+.event-card {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        var(--spacing-3);
+
+}
+
+
+
+.event-card .date {
+
+    color:
+        var(--primary-color);
+
+    font-weight:
+        700;
+
+}
+
+
+
+.event-card .location {
+
+    color:
+        var(--text-light);
+
+}
+
+
+
+/* =========================
+   MINISTÉRIOS
+   ========================= */
+
+
+.ministry-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        var(--spacing-5);
+
+}
+
+
+
+.ministry-card {
+
+    text-align:
+        center;
+
+}
+
+
+
+.ministry-icon {
+
+    width:
+        70px;
+
+    height:
+        70px;
+
+    margin:
+        0 auto var(--spacing-4);
+
+    border-radius:
+        50%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--primary-color);
+
+    color:
+        white;
+
+    font-size:
+        30px;
+
+}
+
+
+
+/* =========================
+   ESTATÍSTICAS
+   ========================= */
+
+
+.stats-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:
+        var(--spacing-5);
+
+}
+
+
+
+.stat-card {
+
+    text-align:
+        center;
+
+}
+
+
+
+.stat-number {
+
+    font-size:
+        var(--text-2xl);
+
+    font-weight:
+        800;
+
+    color:
+        var(--primary-color);
+
+}
+
+
+
+.stat-label {
+
+    color:
+        var(--text-light);
+
+}
+
+
+
+/* =========================
+   FORMULÁRIOS
+   ========================= */
+
+
+.form-group {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        var(--spacing-2);
+
+    margin-bottom:
+        var(--spacing-4);
+
+}
+
+
+
+.form-group label {
+
+    font-weight:
+        600;
+
+}
+
+
+
+.form-group input,
+.form-group textarea {
+
+    width:
+        100%;
+
+    padding:
+        14px;
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        var(--radius-sm);
+
+    outline:
+        none;
+
+}
+
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+
+    border-color:
+        var(--primary-color);
+
+}
+
+
+
+/* =========================
+   ALERTAS
+   ========================= */
+
+
+.alert {
+
+    padding:
+        var(--spacing-4);
+
+    border-radius:
+        var(--radius-sm);
+
+    margin-bottom:
+        var(--spacing-4);
+
+}
+
+
+
+.alert-success {
+
+    background:
+        #dcfce7;
+
+    color:
+        #166534;
+
+}
+
+
+
+.alert-error {
+
+    background:
+        #fee2e2;
+
+    color:
+        #991b1b;
+
+}
+
+
+
+/* =========================
+   LOADING
+   ========================= */
+
+
+.loading {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border-radius:
+        50%;
+
+    border:
+        4px solid var(--border-color);
+
+    border-top-color:
+        var(--primary-color);
+
+    animation:
+        spin 1s linear infinite;
+
+}
+
+
+
+@keyframes spin {
+
+    from {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+/* =========================
+   MEMBERS TABLE
+   ========================= */
+
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom:
+        var(--spacing-5);
+
+}
+
+
+
+.table-container {
+
+    overflow-x: auto;
+
+}
+
+
+
+.members-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+
+.members-table th,
+.members-table td {
+
+    padding: 15px;
+
+    border-bottom:
+        1px solid var(--border-color);
+
+    text-align: left;
+
+}
+
+
+
+.members-table th {
+
+    color:
+        var(--primary-color);
+
+}
+
+
+
+.members-table tr:hover {
+
+    background:
+        var(--surface-color);
+
+}
+
+/* =========================
+   FINANCE TABLE
+   ========================= */
+
+
+.table-container h2 {
+
+    margin-bottom:
+        var(--spacing-4);
+
+}

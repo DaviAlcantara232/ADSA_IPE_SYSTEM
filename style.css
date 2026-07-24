@@ -1,0 +1,257 @@
+/* ========================================================================== */
+/*                               ADSA IPÊ SYSTEM                              */
+/*                               STYLE.CSS                                    */
+/*                             Desenvolvido por Davi                          */
+/* ========================================================================== */
+
+/* ========================================================================== */
+/* RESET                                                                      */
+/* ========================================================================== */
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+}
+
+body{
+    min-height:100vh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg{
+    display:block;
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+    border:none;
+    outline:none;
+    background:none;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul,
+ol{
+    list-style:none;
+}
+
+/* ========================================================================== */
+/* ROOT                                                                       */
+/* ========================================================================== */
+
+:root{
+
+    /* Cores */
+
+    --primary:#0A4D8C;
+    --primary-light:#1565C0;
+    --secondary:#F4B400;
+    --success:#2ECC71;
+    --danger:#E53935;
+    --warning:#FF9800;
+
+    --white:#FFFFFF;
+    --black:#000000;
+
+    --gray-50:#F8FAFC;
+    --gray-100:#F1F5F9;
+    --gray-200:#E2E8F0;
+    --gray-300:#CBD5E1;
+    --gray-400:#94A3B8;
+    --gray-500:#64748B;
+    --gray-600:#475569;
+    --gray-700:#334155;
+    --gray-800:#1E293B;
+    --gray-900:#0F172A;
+
+    /* Tipografia */
+
+    --font-main:"Segoe UI",sans-serif;
+
+    --fs-xs:.75rem;
+    --fs-sm:.875rem;
+    --fs-md:1rem;
+    --fs-lg:1.125rem;
+    --fs-xl:1.5rem;
+    --fs-2xl:2rem;
+    --fs-3xl:3rem;
+
+    /* Bordas */
+
+    --radius-xs:4px;
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:20px;
+    --radius-xl:30px;
+
+    /* Sombras */
+
+    --shadow-sm:0 2px 10px rgba(0,0,0,.08);
+    --shadow-md:0 10px 30px rgba(0,0,0,.12);
+    --shadow-lg:0 20px 60px rgba(0,0,0,.20);
+
+    /* Transições */
+
+    --transition:.3s ease;
+
+    /* Larguras */
+
+    --container:1400px;
+
+}
+
+/* ========================================================================== */
+/* BODY                                                                       */
+/* ========================================================================== */
+
+body{
+
+    font-family:var(--font-main);
+
+    background:var(--gray-50);
+
+    color:var(--gray-900);
+
+    overflow-x:hidden;
+
+    line-height:1.6;
+
+}
+
+/* ========================================================================== */
+/* SCROLLBAR                                                                  */
+/* ========================================================================== */
+
+::-webkit-scrollbar{
+    width:12px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--gray-200);
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--primary-light);
+}
+
+/* ========================================================================== */
+/* SELEÇÃO                                                                    */
+/* ========================================================================== */
+
+::selection{
+    background:var(--primary);
+    color:var(--white);
+}
+
+/* ========================================================================== */
+/* CONTAINER                                                                  */
+/* ========================================================================== */
+
+.container{
+
+    width:min(95%,var(--container));
+
+    margin:auto;
+
+}
+
+/* ========================================================================== */
+/* TITULOS                                                                    */
+/* ========================================================================== */
+
+h1,h2,h3,h4,h5,h6{
+
+    font-weight:700;
+
+    line-height:1.2;
+
+}
+
+h1{
+
+    font-size:var(--fs-3xl);
+
+}
+
+h2{
+
+    font-size:var(--fs-2xl);
+
+}
+
+h3{
+
+    font-size:var(--fs-xl);
+
+}
+
+p{
+
+    color:var(--gray-600);
+
+    font-size:var(--fs-md);
+
+}
+
+/* ========================================================================== */
+/* UTILITÁRIOS                                                                */
+/* ========================================================================== */
+
+.flex{
+    display:flex;
+}
+
+.grid{
+    display:grid;
+}
+
+.center{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.hidden{
+    display:none;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.w-100{
+    width:100%;
+}
+
+.h-100{
+    height:100%;
+}
+

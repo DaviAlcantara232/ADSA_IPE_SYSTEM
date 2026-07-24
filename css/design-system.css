@@ -1,0 +1,244 @@
+/* =====================================
+   ADSA IPÊ SYSTEM
+   DESIGN SYSTEM
+   ===================================== */
+
+
+/* =========================
+   VARIÁVEIS GLOBAIS
+   ========================= */
+
+:root {
+
+    /* Cores principais */
+    --primary-color: #8B0000;
+    --primary-dark: #5A0000;
+    --primary-light: #B22222;
+
+
+    /* Cores neutras */
+    --background-color: #ffffff;
+    --surface-color: #f8f8f8;
+
+    --text-color: #1a1a1a;
+    --text-light: #666666;
+
+    --border-color: #e5e5e5;
+
+
+    /* Destaques */
+    --gold-color: #D4AF37;
+    --success-color: #16a34a;
+    --danger-color: #dc2626;
+
+
+    /* Tipografia */
+
+    --font-primary:
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+
+    --font-title:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+
+
+    /* Tamanhos */
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 2rem;
+    --text-2xl: 3rem;
+
+
+
+    /* Espaçamentos */
+
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.5rem;
+    --spacing-6: 2rem;
+    --spacing-7: 3rem;
+    --spacing-8: 5rem;
+
+
+
+    /* Bordas */
+
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+
+
+    /* Sombras */
+
+    --shadow-sm:
+        0 2px 8px rgba(0,0,0,0.08);
+
+
+    --shadow-md:
+        0 10px 30px rgba(0,0,0,0.12);
+
+
+    --shadow-lg:
+        0 20px 50px rgba(0,0,0,0.18);
+
+
+
+    /* Transições */
+
+    --transition-fast:
+        0.2s ease;
+
+
+    --transition-normal:
+        0.4s ease;
+
+}
+
+
+
+/* =========================
+   CONTAINER PADRÃO
+   ========================= */
+
+
+.container {
+
+    width: min(90%, 1200px);
+
+    margin-inline: auto;
+
+}
+
+
+
+/* =========================
+   SEÇÕES
+   ========================= */
+
+
+.section {
+
+    padding: var(--spacing-8) 0;
+
+}
+
+
+
+/* =========================
+   TÍTULOS
+   ========================= */
+
+
+h1,
+h2,
+h3 {
+
+    font-family: var(--font-title);
+
+    color: var(--text-color);
+
+}
+
+
+
+h1 {
+
+    font-size: var(--text-2xl);
+
+    line-height: 1.1;
+
+}
+
+
+
+h2 {
+
+    font-size: var(--text-xl);
+
+}
+
+
+
+/* =========================
+   BOTÕES BASE
+   ========================= */
+
+
+.btn-primary,
+.btn-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 28px;
+
+    border-radius: var(--radius-md);
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        var(--transition-fast);
+
+}
+
+
+
+.btn-primary {
+
+    background:
+        var(--primary-color);
+
+    color:
+        white;
+
+}
+
+
+
+.btn-primary:hover {
+
+    background:
+        var(--primary-dark);
+
+}
+
+
+
+.btn-secondary {
+
+    border:
+        2px solid var(--primary-color);
+
+    color:
+        var(--primary-color);
+
+}
+
+
+
+.btn-secondary:hover {
+
+    background:
+        var(--primary-color);
+
+    color:
+        white;
+
+}

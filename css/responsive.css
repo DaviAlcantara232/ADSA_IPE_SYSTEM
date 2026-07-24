@@ -1,0 +1,330 @@
+/* =====================================
+   ADSA IPÊ SYSTEM
+   RESPONSIVE CSS
+   ===================================== */
+
+
+/* =========================
+   TABLETS
+   Até 1024px
+   ========================= */
+
+
+@media (max-width: 1024px) {
+
+
+    .hero-content {
+
+        grid-template-columns:
+            1fr;
+
+        text-align:
+            center;
+
+    }
+
+
+
+    .hero-text p {
+
+        margin-inline:
+            auto;
+
+    }
+
+
+
+    .hero-buttons {
+
+        justify-content:
+            center;
+
+    }
+
+
+
+    .hero-image {
+
+        margin-top:
+            var(--spacing-6);
+
+    }
+
+
+
+    .ministry-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+}
+
+
+
+
+/* =========================
+   CELULARES
+   Até 768px
+   ========================= */
+
+
+@media (max-width: 768px) {
+
+
+
+    .header-content {
+
+        height:
+            70px;
+
+    }
+
+
+
+    .nav {
+
+        position:
+            absolute;
+
+        top:
+            70px;
+
+        left:
+            0;
+
+        width:
+            100%;
+
+        background:
+            white;
+
+        flex-direction:
+            column;
+
+        padding:
+            var(--spacing-5);
+
+        gap:
+            var(--spacing-4);
+
+        box-shadow:
+            var(--shadow-md);
+
+
+        display:
+            none;
+
+    }
+
+
+
+    .nav.active {
+
+        display:
+            flex;
+
+    }
+
+
+
+    .menu-toggle {
+
+        display:
+            block;
+
+    }
+
+
+
+
+    .hero {
+
+        min-height:
+            auto;
+
+        padding:
+            var(--spacing-8) 0;
+
+    }
+
+
+
+
+    .hero-text h1 {
+
+        font-size:
+            2.2rem;
+
+    }
+
+
+
+    .hero-text p {
+
+        font-size:
+            var(--text-md);
+
+    }
+
+
+
+    .hero-buttons {
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+    }
+
+
+
+    .btn-primary,
+    .btn-secondary {
+
+        width:
+            100%;
+
+        max-width:
+            320px;
+
+    }
+
+
+
+
+    .image-placeholder {
+
+        height:
+            280px;
+
+    }
+
+
+
+
+    .ministry-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+
+    .stats-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+
+    h1 {
+
+        font-size:
+            2rem;
+
+    }
+
+
+
+    h2 {
+
+        font-size:
+            1.6rem;
+
+    }
+
+
+
+}
+
+
+
+
+/* =========================
+   CELULARES PEQUENOS
+   Até 480px
+   ========================= */
+
+
+@media (max-width: 480px) {
+
+
+    .container {
+
+        width:
+            92%;
+
+    }
+
+
+
+    .logo {
+
+        font-size:
+            1rem;
+
+    }
+
+
+
+    .hero-text h1 {
+
+        font-size:
+            1.8rem;
+
+    }
+
+
+
+    .section {
+
+        padding:
+            3rem 0;
+
+    }
+
+
+
+    .card {
+
+        padding:
+            1rem;
+
+    }
+
+
+}
+
+@media(max-width:768px){
+
+    .page-header {
+
+        flex-direction:
+            column;
+
+        gap:
+            var(--spacing-4);
+
+        align-items:
+            stretch;
+
+    }
+
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Membros | ADSA IPÊ SYSTEM</title>
+
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/design-system.css">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="container header-content">
+
+<div class="logo">
+ADSA IPÊ SYSTEM
+</div>
+
+<nav class="nav">
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="membros.html" class="active">Membros</a>
+
+<a href="financeiro.html">Financeiro</a>
+
+<a href="eventos.html">Eventos</a>
+
+<a href="usuarios.html">Usuários</a>
+
+<a href="configuracoes.html">Configurações</a>
+
+<a href="../index.html">Sair</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="section">
+
+<div class="container">
+
+<h1>Cadastro de Membros</h1>
+
+<p>
+Cadastre e gerencie todos os membros da ADSA IPÊ.
+</p>
+
+<div class="card">
+
+<h2>Dados do Usuário</h2>
+
+<div class="form-group">
+<label>Nome Completo</label>
+<input
+id="nome"
+type="text"
+placeholder="Nome completo">
+</div>
+
+<div class="form-group">
+<label>E-mail</label>
+<input
+id="email"
+type="email"
+placeholder="email@igreja.com">
+</div>
+
+<div class="form-group">
+<label>CPF</label>
+<input
+id="cpf"
+type="text"
+placeholder="000.000.000-00">
+</div>
+
+<div class="form-group">
+<label>Senha</label>
+<input
+id="senha"
+type="password"
+placeholder="Senha do usuário">
+</div>
+
+<div class="form-group">
+
+<label>Status</label>
+
+<select id="status">
+
+<option value="ativo">Ativo</option>
+
+<option value="inativo">Inativo</option>
+
+<option value="bloqueado">Bloqueado</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Dados do Membro</h2>
+
+<div class="form-group">
+
+<label>Telefone</label>
+
+<input
+id="telefone"
+type="text"
+placeholder="(11) 99999-9999">
+
+</div>
+
+<div class="form-group">
+
+<label>Endereço</label>
+
+<textarea
+id="endereco"
+rows="3"
+placeholder="Rua, número, bairro..."></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>Data de nascimento</label>
+
+<input
+id="nascimento"
+type="date">
+
+</div>
+
+<div class="form-group">
+
+<label>Batizado</label>
+
+<select id="batizado">
+
+<option value="0">Não</option>
+
+<option value="1">Sim</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Data do Batismo</label>
+
+<input
+id="data_batismo"
+type="date">
+
+</div>
+
+<div class="form-group">
+
+<label>Ministério</label>
+
+<select id="ministerio">
+
+<option value="">Selecione</option>
+
+<option>Pastor</option>
+
+<option>Presbítero</option>
+
+<option>Diácono</option>
+
+<option>Louvor</option>
+
+<option>Jovens</option>
+
+<option>Adolescentes</option>
+
+<option>Infantil</option>
+
+<option>Evangelismo</option>
+
+<option>Ação Social</option>
+
+<option>Mídia</option>
+
+<option>Intercessão</option>
+
+<option>Recepção</option>
+
+<option>Ensino</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Observações</label>
+
+<textarea
+
+id="observacoes"
+
+rows="5"
+
+placeholder="Observações sobre o membro...">
+
+</textarea>
+
+</div>
+
+<div class="form-actions">
+
+<button
+
+class="btn-primary"
+
+id="salvar-membro"
+
+type="button">
+
+Salvar Membro
+
+</button>
+
+<button
+
+class="btn-secondary"
+
+id="limpar-formulario"
+
+type="button">
+
+Limpar
+
+</button>
+
+<button
+
+class="btn-secondary"
+
+id="cancelar-edicao"
+
+type="button"
+
+style="display:none;">
+
+Cancelar Edição
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Pesquisar Membros</h2>
+
+<input
+
+type="search"
+
+id="pesquisa"
+
+placeholder="Pesquisar por nome...">
+
+</div>
+
+<div class="card table-container">
+
+<h2>Lista de Membros</h2>
+
+<table class="members-table">
+
+<thead>
+
+<tr>
+
+<th>Nome</th>
+
+<th>Email</th>
+
+<th>Telefone</th>
+
+<th>Ministério</th>
+
+<th>Status</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody id="lista-membros">
+
+<tr>
+
+<td colspan="6" style="text-align:center;">
+
+Carregando membros...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<script src="../js/main.js"></script>
+<script src="../js/membros.js"></script>
+
+</body>
+
+</html>
