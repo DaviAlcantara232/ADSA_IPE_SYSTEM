@@ -1,25 +1,32 @@
 // =====================================
 // ADSA IPÊ SYSTEM
-// BACKEND SERVER
-// MYSQL + JWT + PERMISSÕES
+// BACKEND API
+// MYSQL + JWT
 // =====================================
+
 
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
-const db = require("./config/database");
+const mysql = require("mysql2/promise");
+const bcrypt = require("bcrypt");
+
 
 dotenv.config();
 
+
 const app = express();
+
 
 const PORT = process.env.PORT || 3000;
 
 
+
 // =====================================
-// MIDDLEWARES
+// MIDDLEWARE
 // =====================================
+
 
 app.use(cors());
 
@@ -33,90 +40,137 @@ app.use(express.urlencoded({
 
 
 // =====================================
-// VERIFICAR TOKEN
+// MYSQL
 // =====================================
+
+
+const db = mysql.createPool({
+
+    host:process.env.DB_HOST,
+
+    user:process.env.DB_USER,
+
+    password:process.env.DB_PASSWORD,
+
+    database:process.env.DB_NAME,
+
+    waitForConnections:true,
+
+    connectionLimit:10
+
+});
+
+
+
+db.getConnection()
+.then(()=>{
+
+console.log("MySQL conectado com sucesso!");
+
+})
+.catch(err=>{
+
+console.log("Erro MySQL:",err);
+
+});
+
+
+
+
+// =====================================
+// JWT
+// =====================================
+
 
 function verificarToken(req,res,next){
 
-    const authHeader = req.headers.authorization;
+
+const auth = req.headers.authorization;
 
 
-    if(!authHeader){
+if(!auth){
 
-        return res.status(401).json({
+return res.status(401).json({
 
-            sucesso:false,
+sucesso:false,
 
-            mensagem:"Token não informado"
+mensagem:"Token não informado"
 
-        });
+});
 
-    }
-
-
-    const token = authHeader.split(" ")[1];
+}
 
 
-    try{
 
-        req.usuario = jwt.verify(
-
-            token,
-
-            process.env.JWT_SECRET
-
-        );
+const token = auth.split(" ")[1];
 
 
-        next();
+try{
 
 
-    }catch(error){
+req.usuario = jwt.verify(
 
-        return res.status(403).json({
+token,
 
-            sucesso:false,
+process.env.JWT_SECRET
 
-            mensagem:"Token inválido"
+);
 
-        });
 
-    }
+next();
+
+
+
+}catch(error){
+
+
+return res.status(403).json({
+
+sucesso:false,
+
+mensagem:"Token inválido"
+
+});
+
+
+}
+
 
 }
 
 
 
 
-
-// =====================================
-// PERMISSÕES
-// =====================================
 
 function permitir(...tipos){
 
-    return (req,res,next)=>{
+
+return(req,res,next)=>{
 
 
-        if(!tipos.includes(req.usuario.tipo)){
+if(!tipos.includes(req.usuario.tipo)){
 
 
-            return res.status(403).json({
+return res.status(403).json({
 
-                sucesso:false,
+sucesso:false,
 
-                mensagem:"Usuário sem permissão"
+mensagem:"Sem permissão"
 
-            });
+});
 
-        }
-
-
-        next();
-
-    };
 
 }
+
+
+next();
+
+
+};
+
+
+}
+
 
 
 
@@ -126,22 +180,23 @@ function permitir(...tipos){
 // HOME
 // =====================================
 
+
 app.get("/",(req,res)=>{
 
 
-    res.json({
+res.json({
 
-        sistema:"ADSA IPÊ SYSTEM",
+sistema:"ADSA IPÊ SYSTEM",
 
-        status:"Online",
+status:"Online",
 
-        banco:"MySQL"
-
-    });
+banco:"MySQL"
 
 
 });
 
+
+});
 
 
 
@@ -151,7 +206,8 @@ app.get("/",(req,res)=>{
 // LOGIN
 // =====================================
 
-app.post("/api/login",(req,res)=>{
+
+app.post("/api/login", async(req,res)=>{
 
 
 const {
@@ -164,69 +220,57 @@ senha
 
 
 
-const sql = `
-
-SELECT *
-
-FROM usuarios
-
-WHERE email = ?
-
-AND senha = ?
-
-`;
+try{
 
 
+const [usuarios] = await db.query(
 
-db.query(sql,[email,senha],(err,result)=>{
+"SELECT * FROM usuarios WHERE email=?",
 
+[email]
 
-if(err){
-
-return res.status(500).json({
-
-mensagem:"Erro no banco"
-
-});
-
-}
+);
 
 
 
-if(result.length===0){
+if(usuarios.length===0){
+
 
 return res.status(401).json({
 
 sucesso:false,
 
-mensagem:"Login inválido"
+mensagem:"Usuário não encontrado"
 
 });
+
 
 }
 
 
 
-const usuario=result[0];
+const usuario = usuarios[0];
 
 
 
-if(usuario.status !== "ativo"){
+if(senha !== usuario.senha){
 
-return res.status(403).json({
 
-mensagem:"Usuário bloqueado"
+return res.status(401).json({
+
+sucesso:false,
+
+mensagem:"Senha incorreta"
 
 });
+
 
 }
 
 
 
 
-const token = jwt.sign(
-
-{
+const token = jwt.sign({
 
 id:usuario.id,
 
@@ -238,6 +282,7 @@ tipo:usuario.tipo,
 
 status:usuario.status
 
+
 },
 
 process.env.JWT_SECRET,
@@ -246,9 +291,8 @@ process.env.JWT_SECRET,
 
 expiresIn:"8h"
 
-}
+});
 
-);
 
 
 
@@ -256,8 +300,6 @@ expiresIn:"8h"
 res.json({
 
 sucesso:true,
-
-mensagem:"Login realizado",
 
 token,
 
@@ -267,7 +309,21 @@ usuario
 
 
 
+}catch(error){
+
+
+console.log(error);
+
+
+res.status(500).json({
+
+erro:error.message
+
 });
+
+
+}
+
 
 
 });
@@ -281,185 +337,89 @@ usuario
 // USUÁRIOS
 // =====================================
 
-app.get("/api/usuarios",(req,res)=>{
 
-
-db.query(
-
-"SELECT id,nome,email,tipo,status FROM usuarios",
-
-(err,result)=>{
-
-
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro usuários"
-
-});
-
-}
-
-
-
-res.json({
-
-sucesso:true,
-
-usuarios:result
-
-});
-
-
-});
-
-
-});
-
-// =====================================
-// MEMBROS - LISTAR
-// =====================================
-
-app.get("/api/membros",(req,res)=>{
-
-
-const sql = `
-
-SELECT
-
-membros.*,
-
-usuarios.nome,
-
-usuarios.email
-
-FROM membros
-
-LEFT JOIN usuarios
-
-ON membros.usuario_id = usuarios.id
-
-`;
-
-
-
-db.query(sql,(err,result)=>{
-
-
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro membros"
-
-});
-
-}
-
-
-
-res.json({
-
-sucesso:true,
-
-membros:result
-
-});
-
-
-});
-
-
-});
-
-
-
-
-
-
-// =====================================
-// MEMBROS - CADASTRAR
-// =====================================
-
-app.post(
-
-"/api/membros",
+app.get("/api/usuarios",
 
 verificarToken,
 
 permitir("admin"),
 
-(req,res)=>{
+async(req,res)=>{
+
+
+const [dados]=await db.query(
+
+"SELECT id,nome,email,tipo,status FROM usuarios"
+
+);
+
+
+
+res.json({
+
+sucesso:true,
+
+usuarios:dados
+
+});
+
+
+});
+
+
+
+
+
+
+app.post("/api/usuarios",
+
+verificarToken,
+
+permitir("admin"),
+
+async(req,res)=>{
 
 
 const {
 
-usuario_id,
-telefone,
-endereco,
-nascimento,
-batizado,
-data_batismo,
-ministerio,
-observacoes
+nome,
+
+email,
+
+cpf,
+
+senha,
+
+tipo
 
 }=req.body;
 
 
 
-const sql = `
+await db.query(
 
-INSERT INTO membros
-
-(
-
-usuario_id,
-telefone,
-endereco,
-nascimento,
-batizado,
-data_batismo,
-ministerio,
-observacoes
-
-)
-
-VALUES (?,?,?,?,?,?,?,?)
-
-`;
-
-
-
-db.query(
-
-sql,
+`
+INSERT INTO usuarios
+(nome,email,cpf,senha,tipo)
+VALUES(?,?,?,?,?)
+`,
 
 [
 
-usuario_id,
-telefone,
-endereco,
-nascimento,
-batizado,
-data_batismo,
-ministerio,
-observacoes
+nome,
 
-],
+email,
 
-(err,result)=>{
+cpf,
+
+senha,
+
+tipo || "membro"
+
+]
 
 
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro cadastro membro"
-
-});
-
-}
+);
 
 
 
@@ -467,58 +427,96 @@ res.json({
 
 sucesso:true,
 
-mensagem:"Membro cadastrado",
-
-id:result.insertId
+mensagem:"Usuário criado"
 
 });
 
 
+
 });
 
 
-}
+
+
+
+
+
+// =====================================
+// MEMBROS
+// =====================================
+
+
+app.get("/api/membros",
+
+verificarToken,
+
+async(req,res)=>{
+
+
+const [dados]=await db.query(
+
+"SELECT * FROM membros"
 
 );
 
 
+res.json({
 
+sucesso:true,
 
-
-
-
-
-// =====================================
-// FINANCEIRO - LISTAR
-// =====================================
-
-app.get(
-
-"/api/financeiro",
-
-verificarToken,
-
-permitir("admin","tesoureiro"),
-
-(req,res)=>{
-
-
-db.query(
-
-"SELECT * FROM financeiro ORDER BY data DESC",
-
-(err,result)=>{
-
-
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro financeiro"
+membros:dados
 
 });
 
-}
+
+});
+
+
+
+
+
+app.post("/api/membros",
+
+verificarToken,
+
+async(req,res)=>{
+
+
+const dados=req.body;
+
+
+
+await db.query(
+
+`
+INSERT INTO membros
+(usuario_id,telefone,endereco,nascimento,batizado,data_batismo,ministerio,observacoes)
+
+VALUES(?,?,?,?,?,?,?,?)
+`,
+
+[
+
+dados.usuario_id,
+
+dados.telefone,
+
+dados.endereco,
+
+dados.nascimento,
+
+dados.batizado,
+
+dados.data_batismo,
+
+dados.ministerio,
+
+dados.observacoes
+
+
+]
+
+);
 
 
 
@@ -526,7 +524,7 @@ res.json({
 
 sucesso:true,
 
-dados:result
+mensagem:"Membro cadastrado"
 
 });
 
@@ -534,94 +532,100 @@ dados:result
 });
 
 
-}
+
+
+
+
+
+
+// =====================================
+// FINANCEIRO
+// =====================================
+
+
+app.get("/api/financeiro",
+
+verificarToken,
+
+permitir("admin"),
+
+async(req,res)=>{
+
+
+const [dados]=await db.query(
+
+"SELECT * FROM financeiro ORDER BY data DESC"
 
 );
 
 
 
+res.json({
+
+sucesso:true,
+
+dados
+
+});
+
+
+});
 
 
 
 
 
-// =====================================
-// FINANCEIRO - CADASTRAR
-// =====================================
 
-app.post(
 
-"/api/financeiro",
+app.post("/api/financeiro",
 
 verificarToken,
 
-permitir("admin","tesoureiro"),
+permitir("admin"),
 
-(req,res)=>{
+async(req,res)=>{
 
 
 const {
 
 tipo,
+
 descricao,
+
 valor,
+
 data
 
 }=req.body;
 
 
 
-const sql = `
+await db.query(
 
+`
 INSERT INTO financeiro
+(tipo,descricao,valor,data,usuario_id)
 
-(
+VALUES(?,?,?,?,?)
 
-tipo,
-descricao,
-valor,
-data,
-usuario_id
-
-)
-
-VALUES (?,?,?,?,?)
-
-`;
-
-
-
-db.query(
-
-sql,
+`,
 
 [
 
 tipo,
+
 descricao,
+
 valor,
+
 data,
+
 req.usuario.id
 
-],
-
-(err,result)=>{
+]
 
 
-if(err){
-
-console.log(err);
-
-
-return res.status(500).json({
-
-sucesso:false,
-
-mensagem:"Erro ao cadastrar lançamento"
-
-});
-
-}
+);
 
 
 
@@ -629,130 +633,12 @@ res.json({
 
 sucesso:true,
 
-mensagem:"Lançamento criado",
-
-id:result.insertId
+mensagem:"Lançamento salvo"
 
 });
 
 
 });
-
-
-}
-
-);
-
-
-
-
-
-
-
-
-// =====================================
-// FINANCEIRO - RESUMO
-// =====================================
-
-app.get(
-
-"/api/financeiro/resumo",
-
-verificarToken,
-
-permitir("admin","tesoureiro"),
-
-(req,res)=>{
-
-
-const sql = `
-
-SELECT
-
-
-SUM(
-
-CASE
-
-WHEN tipo='entrada'
-
-THEN valor
-
-ELSE 0
-
-END
-
-) AS entradas,
-
-
-SUM(
-
-CASE
-
-WHEN tipo='saida'
-
-THEN valor
-
-ELSE 0
-
-END
-
-) AS saidas
-
-
-FROM financeiro
-
-
-`;
-
-
-
-db.query(sql,(err,result)=>{
-
-
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro resumo financeiro"
-
-});
-
-}
-
-
-
-const entradas = Number(result[0].entradas || 0);
-
-const saidas = Number(result[0].saidas || 0);
-
-
-
-res.json({
-
-sucesso:true,
-
-resumo:{
-
-entradas,
-
-saidas,
-
-saldo: entradas - saidas
-
-}
-
-});
-
-
-});
-
-
-}
-
-);
-
-
 
 
 
@@ -764,89 +650,112 @@ saldo: entradas - saidas
 // EVENTOS
 // =====================================
 
-app.get("/api/eventos",(req,res)=>{
+
+app.get("/api/eventos",
+
+async(req,res)=>{
 
 
-db.query(
+const [dados]=await db.query(
 
-"SELECT * FROM eventos ORDER BY data_evento ASC",
-
-(err,result)=>{
-
-
-if(err){
-
-return res.status(500).json({
-
-erro:"Erro eventos"
-
-});
-
-}
-
-
-
-res.json({
-
-sucesso:true,
-
-eventos:result
-
-});
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-// =====================================
-// ADMIN TESTE
-// =====================================
-
-app.get(
-
-"/api/admin/teste",
-
-verificarToken,
-
-permitir("admin"),
-
-(req,res)=>{
-
-
-res.json({
-
-sucesso:true,
-
-mensagem:"Área administrativa liberada",
-
-usuario:req.usuario
-
-});
-
-
-}
+"SELECT * FROM eventos ORDER BY data_evento"
 
 );
 
 
 
+res.json({
+
+sucesso:true,
+
+dados
+
+});
+
+
+});
+
+
+
+
+
+
+app.post("/api/eventos",
+
+verificarToken,
+
+permitir("admin","pastor"),
+
+async(req,res)=>{
+
+
+const {
+
+titulo,
+
+descricao,
+
+data_evento,
+
+horario,
+
+local
+
+}=req.body;
+
+
+
+await db.query(
+
+`
+
+INSERT INTO eventos
+
+(titulo,descricao,data_evento,horario,local)
+
+VALUES(?,?,?,?,?)
+
+`,
+
+[
+
+titulo,
+
+descricao,
+
+data_evento,
+
+horario,
+
+local
+
+]
+
+
+);
+
+
+
+res.json({
+
+sucesso:true,
+
+mensagem:"Evento criado"
+
+});
+
+
+});
+
 
 
 
 
 
 // =====================================
-// ROTA NÃO ENCONTRADA
+// 404
 // =====================================
+
 
 app.use((req,res)=>{
 
@@ -870,11 +779,6 @@ rota:req.originalUrl
 
 
 
-
-// =====================================
-// SERVIDOR
-// =====================================
-
 app.listen(PORT,()=>{
 
 
@@ -888,11 +792,9 @@ Servidor ONLINE
 
 Porta: ${PORT}
 
-MySQL: ATIVO
-
 JWT: ATIVO
 
-PERMISSÕES: ATIVAS
+MYSQL: ATIVO
 
 =================================
 
